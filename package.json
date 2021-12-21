@@ -1,6 +1,6 @@
 {
   "name": "@nhogs/nestjs-firebase",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Firebase module for Nest framework",
   "author": "Frederic Ciminera",
   "repository": {
@@ -11,9 +11,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
-    "test": "jest --config ./test/jest-e2e.json --runInBand",
-    "prepublish:npm": "npm run build",
-    "publish:npm": "npm publish --access public"
+    "test": "jest --config ./test/jest-e2e.json --runInBand"
   },
   "keywords": [
     "firebase",
