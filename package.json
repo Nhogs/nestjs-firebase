@@ -11,6 +11,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
+    "test": "jest --config ./test/jest-e2e.json --runInBand",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public"
   },
@@ -28,6 +29,9 @@
     "@nestjs/common": "^8.2.4",
     "@nestjs/config": "^1.1.5",
     "@nestjs/core": "^8.2.4",
+    "@nestjs/platform-express": "^8.2.4",
+    "@nestjs/testing": "^8.2.4",
+    "@types/jest": "^27.0.3",
     "jest": "^27.4.5",
     "prettier": "^2.5.1",
     "reflect-metadata": "^0.1.13",
