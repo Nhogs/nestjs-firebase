@@ -1,6 +1,6 @@
 {
   "name": "@nhogs/nestjs-firebase",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Firebase module for Nest framework",
   "author": "Frederic Ciminera",
   "repository": {
