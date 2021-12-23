@@ -23,8 +23,9 @@ jobs:
     - name: Use JAVA
       uses: actions/setup-java@v1
       with:
-        java-version: '9.x'
+        java-version: '17.x'
         java-package: jdk
     - run: npm ci
     - run: npm run build --if-present
+    - run: firebase emulators:start
     - run: npm test
