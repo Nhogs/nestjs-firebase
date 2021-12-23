@@ -27,5 +27,5 @@ jobs:
         java-package: jdk
     - run: npm ci
     - run: npm run build --if-present
-    - run: firebase emulators:start
+    - run: npm run firebase-emulation --if-present
     - run: npm test
