@@ -16,6 +16,6 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
       - name: Build code
-      - run: npm run build
+        run: npm run build
       - name: Run all the tests
         run: firebase emulators:exec 'npm test'
