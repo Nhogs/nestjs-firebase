@@ -10,3 +10,10 @@ tsconfig.build.json
 .prettierrc
 .prettierrc
 .commitlintrc.json
+*.log
+# firebase emulator config
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
