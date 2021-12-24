@@ -14,7 +14,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
-    "firebase-emulation": "firebase emulators:start",
+    "firebase-emulation": "firebase emulators:exec 'npm test'",
     "test": "jest --runInBand"
   },
   "keywords": [
