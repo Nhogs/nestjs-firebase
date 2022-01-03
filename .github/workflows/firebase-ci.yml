@@ -1,6 +1,10 @@
 name: Firebase CI
 
-on: push
+on:
+  push:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   emulator_test:
