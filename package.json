@@ -70,7 +70,8 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "lib/**/*.(t|j)s",
+      "!**/index.ts"
     ],
     "coverageDirectory": "./coverage",
     "collectCoverage": true,
