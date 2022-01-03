@@ -14,8 +14,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
-    "emulators": "firebase emulators:start",
-    "test": "jest --runInBand"
+    "emulators": "firebase emulators:start --project demo-nhogs-nestjs-firebase",
+    "test": "jest --runInBand --ci --coverage && codecov"
   },
   "keywords": [
     "firebase",
@@ -38,6 +38,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
+    "axios": "^0.24.0",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
