@@ -12,10 +12,6 @@ jobs:
         with:
           node-version: 16
           cache: "npm"
-      - uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unittests
       - name: Install Firebase Emulator Suite
         run: npm install -g firebase-tools
       - name: Install npm dependencies
@@ -30,3 +26,8 @@ jobs:
         continue-on-error: true
       - name: Run all the tests
         run: firebase emulators:exec --project demo-nhogs-nestjs-firebase 'npm test'
+      - name: Send coverage report
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
