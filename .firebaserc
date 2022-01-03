@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "default": "nhogs-nestjs-firebase"
+  }
+}
