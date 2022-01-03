@@ -15,7 +15,7 @@
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
     "emulators": "firebase emulators:start --project demo-nhogs-nestjs-firebase",
-    "test": "jest --runInBand && codecov"
+    "test": "jest --runInBand"
   },
   "keywords": [
     "firebase",
