@@ -29,4 +29,4 @@ jobs:
       - name: Run all the tests
         run: firebase emulators:exec --project demo-nhogs-nestjs-firebase 'npm test'
       - name: Update coverage
-        run: codcov
+        run: codecov
