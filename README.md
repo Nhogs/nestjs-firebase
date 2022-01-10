@@ -14,7 +14,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/maintainability)](https://codeclimate.com/github/Nhogs/nestjs-firebase/maintainability)
 
 ## Installation
-![npm](https://img.shields.io/npm/v/@nhogs/nestjs-firebase?label=%40nhogs%2Fnestjs-firebase&logo=npm)
+[![npm](https://img.shields.io/npm/v/@nhogs/nestjs-firebase?label=%40nhogs%2Fnestjs-firebase&logo=npm)](https://www.npmjs.com/package/@nhogs/nestjs-firebase)
 
 ```bash
 $ npm i --save @nhogs/nestjs-firebase
