@@ -54,7 +54,7 @@
   "peerDependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
-    "firebase": "^9.6.1",
+    "firebase": "^9.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0 || ^7.0.0"
   },
