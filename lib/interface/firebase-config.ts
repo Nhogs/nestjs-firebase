@@ -1,5 +1,6 @@
 export interface FirebaseConfig {
-  apiKey: string;
-  authDomain: string;
   projectId: string;
+  apiKey?: string;
+  authDomain?: string;
+  emulator?: boolean;
 }

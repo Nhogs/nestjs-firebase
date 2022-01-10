@@ -3,13 +3,14 @@ import {
   Module,
   OnApplicationShutdown,
   Provider,
-} from '@nestjs/common';
-import { FirestoreService } from './service';
-import { ConfigModule } from '@nestjs/config';
-import { initializeApp } from 'firebase/app';
-import { StorageService } from './service';
-import { FIREBASE_APP, FIREBASE_CONFIG } from './firebase.constants';
-import {FirebaseConfig} from "./interface";
+} from "@nestjs/common";
+import { FirestoreService } from "./service";
+import { ConfigModule } from "@nestjs/config";
+import { initializeApp } from "firebase/app";
+import { StorageService } from "./service";
+import { FIREBASE_APP, FIREBASE_CONFIG } from "./firebase.constants";
+import { FirebaseConfig } from "./interface";
+import { AuthService } from "./service/auth.service";
 
 export const createApp = async (config: FirebaseConfig) => {
   return initializeApp(config);
@@ -17,15 +18,14 @@ export const createApp = async (config: FirebaseConfig) => {
 
 @Module({})
 export class FirebaseModule implements OnApplicationShutdown {
-  async onApplicationShutdown() {
-
-  }
+  async onApplicationShutdown() {}
 
   static forRoot(config: FirebaseConfig): DynamicModule {
     return {
       module: FirebaseModule,
       global: true,
       providers: [
+        AuthService,
         FirestoreService,
         StorageService,
         {
@@ -38,7 +38,7 @@ export class FirebaseModule implements OnApplicationShutdown {
           useFactory: async (config: FirebaseConfig) => createApp(config),
         },
       ],
-      exports: [FirestoreService, StorageService],
+      exports: [AuthService, FirestoreService, StorageService],
     };
   }
 
@@ -49,6 +49,7 @@ export class FirebaseModule implements OnApplicationShutdown {
       imports: [ConfigModule],
 
       providers: [
+        AuthService,
         FirestoreService,
         StorageService,
         {
@@ -62,7 +63,7 @@ export class FirebaseModule implements OnApplicationShutdown {
         },
       ],
 
-      exports: [FirestoreService, StorageService],
+      exports: [AuthService, FirestoreService, StorageService],
     };
   }
 }
