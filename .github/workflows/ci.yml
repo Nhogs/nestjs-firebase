@@ -1,4 +1,4 @@
-name: End to end tests on Firbase emulator
+name: CI
 
 on:
   push:
