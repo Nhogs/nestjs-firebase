@@ -7,7 +7,7 @@
       "port": 9199
     },
     "ui": {
-      "enabled": false
+      "enabled": true
     },
     "auth": {
       "port": 9099
