@@ -8,7 +8,6 @@ package-lock.json
 tsconfig.json
 tsconfig.build.json
 .prettierrc
-.prettierrc
 .commitlintrc.json
 *.log
 # firebase emulator config
