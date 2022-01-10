@@ -10,7 +10,7 @@
 [![npm peer dependency version NestJS)](https://img.shields.io/npm/dependency-version/@nhogs/nestjs-firebase/peer/@nestjs/core?label=Nestjs&logo=nestjs&logoColor=e0234e)](https://github.com/nestjs/nest)
 ---
 [![CI](https://github.com/nhogs/nestjs-firebase/actions/workflows/ci.yml/badge.svg)](https://github.com/Nhogs/nestjs-firebase/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/Nhogs/nestjs-firebase/branch/develop/graph/badge.svg?token=ZRPM5WFGO2)](https://codecov.io/gh/Nhogs/nestjs-firebase)
+[![codecov](https://codecov.io/gh/Nhogs/nestjs-firebase/branch/main/graph/badge.svg?token=ZRPM5WFGO2)](https://codecov.io/gh/Nhogs/nestjs-firebase)
 [![Maintainability](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/maintainability)](https://codeclimate.com/github/Nhogs/nestjs-firebase/maintainability)
 
 ## Installation
