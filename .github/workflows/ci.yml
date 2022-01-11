@@ -29,7 +29,7 @@ jobs:
           key: ${{ runner.os }}-firebase-emulators-${{ hashFiles('~/.cache/firebase/emulators/**') }}
         continue-on-error: true
       - name: Run all the tests
-        run: firebase emulators:exec --project demo-nhogs-nestjs-firebase 'npm test'
+        run: firebase emulators:exec --project demo-nhogs-nestjs-firebase --import=test/e2e/import 'npm test'
       - name: Send coverage report
         uses: codecov/codecov-action@v2
         with:
