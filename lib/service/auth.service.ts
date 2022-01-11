@@ -19,8 +19,8 @@ export class AuthService {
     @Inject(FIREBASE_CONFIG) private readonly firebaseConfig: FirebaseConfig
   ) {
     this._auth = getAuth(this.firebaseApp);
-    if (this.firebaseConfig.emulator) {
-      connectAuthEmulator(this._auth, "http://localhost:9099");
+    if (this.firebaseConfig.emulator?.authUrl) {
+      connectAuthEmulator(this._auth, this.firebaseConfig.emulator?.authUrl);
     }
   }
 

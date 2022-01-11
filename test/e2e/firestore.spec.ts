@@ -5,7 +5,7 @@ import { CatsService } from "../src/cats/cats.service";
 import { AppModule } from "../src/app.module";
 import axios from "axios";
 
-describe("Firestore", () => {
+describe("Firebase Firestore", () => {
   let server: Server;
   let app: INestApplication;
   let catsService: CatsService;
@@ -22,39 +22,42 @@ describe("Firestore", () => {
   });
 
   it(`should create and find one by id`, async () => {
-    let cat = await catsService.create({
-      name: "Nest",
+    let createdCat = await catsService.create({
+      name: "Snowflake",
       breed: "Maine coon",
-      age: 5,
+      age: 3,
     });
 
-    expect(cat).toMatchInlineSnapshot(
+    expect(createdCat).toMatchInlineSnapshot(
       {
         id: expect.any(String),
       },
       `
       Object {
-        "age": 5,
+        "age": 3,
         "breed": "Maine coon",
         "id": Any<String>,
-        "name": "Nest",
+        "name": "Snowflake",
       }
     `
     );
 
-    expect(await catsService.findOneById(cat.id)).toMatchInlineSnapshot(
+    let foundCat = await catsService.findOneById(createdCat.id);
+    expect(foundCat).toMatchInlineSnapshot(
       {
         id: expect.any(String),
       },
       `
       Object {
-        "age": 5,
+        "age": 3,
         "breed": "Maine coon",
         "id": Any<String>,
-        "name": "Nest",
+        "name": "Snowflake",
       }
     `
     );
+
+    expect(createdCat.id).toEqual(foundCat.id);
   });
 
   it(`should not find unknown id`, async () => {
@@ -157,42 +160,17 @@ describe("Firestore", () => {
     );
   });
 
-  it(`should set doc`, async () => {
+  it(`should update doc`, async () => {
     let cat = await catsService.update({
-      id: "myId",
-      name: "Nest",
-      breed: "Maine coon",
-      age: 5,
-    });
-
-    expect(cat).toMatchInlineSnapshot(`
-      Object {
-        "age": 5,
-        "breed": "Maine coon",
-        "id": "myId",
-        "name": "Nest",
-      }
-    `);
-
-    expect(await catsService.findOneById("myId")).toMatchInlineSnapshot(`
-      Object {
-        "age": 5,
-        "breed": "Maine coon",
-        "id": "myId",
-        "name": "Nest",
-      }
-    `);
-
-    cat = await catsService.update({
       id: "myId",
       name: "Snowflake",
       breed: "Maine coon",
-      age: 5,
+      age: 3,
     });
 
     expect(cat).toMatchInlineSnapshot(`
       Object {
-        "age": 5,
+        "age": 3,
         "breed": "Maine coon",
         "id": "myId",
         "name": "Snowflake",
@@ -201,7 +179,32 @@ describe("Firestore", () => {
 
     expect(await catsService.findOneById("myId")).toMatchInlineSnapshot(`
       Object {
-        "age": 5,
+        "age": 3,
+        "breed": "Maine coon",
+        "id": "myId",
+        "name": "Snowflake",
+      }
+    `);
+
+    cat = await catsService.update({
+      id: "myId",
+      name: "Snowflake",
+      breed: "Maine coon",
+      age: 4,
+    });
+
+    expect(cat).toMatchInlineSnapshot(`
+      Object {
+        "age": 4,
+        "breed": "Maine coon",
+        "id": "myId",
+        "name": "Snowflake",
+      }
+    `);
+
+    expect(await catsService.findOneById("myId")).toMatchInlineSnapshot(`
+      Object {
+        "age": 4,
         "breed": "Maine coon",
         "id": "myId",
         "name": "Snowflake",

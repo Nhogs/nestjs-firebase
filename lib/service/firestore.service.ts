@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from "@nestjs/common";
-import { FirebaseApp } from "@firebase/app";
+import { FirebaseApp } from "firebase/app";
 import {
   addDoc,
   collection as firebaseCollection,
@@ -11,7 +11,7 @@ import {
   getDocs,
   getFirestore,
   setDoc,
-} from "@firebase/firestore";
+} from "firebase/firestore";
 import { FIREBASE_APP, FIREBASE_CONFIG } from "../firebase.constants";
 import { FirebaseConfig } from "../interface";
 
@@ -24,8 +24,12 @@ export class FirestoreService {
     @Inject(FIREBASE_CONFIG) private readonly firebaseConfig: FirebaseConfig
   ) {
     this._db = getFirestore(this.firebaseApp);
-    if (this.firebaseConfig.emulator) {
-      connectFirestoreEmulator(this._db, "localhost", 8080);
+    if (this.firebaseConfig.emulator?.firestore) {
+      connectFirestoreEmulator(
+        this._db,
+        this.firebaseConfig.emulator.firestore.host || "localhost",
+        this.firebaseConfig.emulator.firestore.port || 8080
+      );
     }
   }
 

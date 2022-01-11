@@ -5,7 +5,7 @@ import { CatsService } from "../src/cats/cats.service";
 import axios from "axios";
 import { AppAsyncModule } from "../src/app.async.module";
 
-describe("Firebase", () => {
+describe("Firebase Firestore async", () => {
   let server: Server;
   let app: INestApplication;
   let catsService: CatsService;
@@ -23,7 +23,7 @@ describe("Firebase", () => {
 
   it(`should create and find one by id`, async () => {
     let cat = await catsService.create({
-      name: "Nest",
+      name: "Snowflake",
       breed: "Maine coon",
       age: 5,
     });
@@ -37,7 +37,7 @@ describe("Firebase", () => {
         "age": 5,
         "breed": "Maine coon",
         "id": Any<String>,
-        "name": "Nest",
+        "name": "Snowflake",
       }
     `
     );
@@ -51,7 +51,7 @@ describe("Firebase", () => {
         "age": 5,
         "breed": "Maine coon",
         "id": Any<String>,
-        "name": "Nest",
+        "name": "Snowflake",
       }
     `
     );

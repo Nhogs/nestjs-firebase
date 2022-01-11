@@ -1,8 +1,19 @@
-import {Inject, Injectable, Logger} from "@nestjs/common";
-import {FirebaseApp} from "@firebase/app";
-import {connectStorageEmulator, getStorage,} from "@firebase/storage";
-import {FIREBASE_APP, FIREBASE_CONFIG} from "../firebase.constants";
-import {FirebaseConfig} from "../interface";
+import { Inject, Injectable, Logger } from "@nestjs/common";
+import { FirebaseApp } from "firebase/app";
+import {
+  connectStorageEmulator,
+  getDownloadURL,
+  getStorage,
+  ref,
+  StorageReference,
+  uploadBytes,
+  uploadString,
+  UploadResult,
+  StringFormat,
+  UploadMetadata,
+} from "firebase/storage";
+import { FIREBASE_APP, FIREBASE_CONFIG } from "../firebase.constants";
+import { FirebaseConfig } from "../interface";
 
 @Injectable()
 export class StorageService {
@@ -14,13 +25,37 @@ export class StorageService {
     @Inject(FIREBASE_CONFIG) private readonly firebaseConfig: FirebaseConfig
   ) {
     this._storage = getStorage(this.firebaseApp);
-    if (this.firebaseConfig.emulator) {
-      connectStorageEmulator(this._storage, "localhost", 9199);
+    if (this.firebaseConfig.emulator?.storage) {
+      connectStorageEmulator(
+        this._storage,
+        this.firebaseConfig.emulator.storage.host || "localhost",
+        this.firebaseConfig.emulator.storage.port || 9199
+      );
     }
   }
-  //
-  // async getDownloadURL(url: string): Promise<string> {
-  //   this._logger.debug('getDownloadURL=>' + url);
-  //   return getDownloadURL(ref(this.storage, url));
-  // }
+
+  protected _ref(url?: string): StorageReference {
+    return ref(this._storage, url);
+  }
+
+  async getDownloadURL(path: string): Promise<string> {
+    return getDownloadURL(this._ref(path));
+  }
+
+  async uploadString(
+    path: string,
+    value: string,
+    format?: StringFormat,
+    metadata?: UploadMetadata
+  ): Promise<UploadResult> {
+    return uploadString(this._ref(path), value, format, metadata);
+  }
+
+  async uploadBytes(
+    path: string,
+    data: Blob | Uint8Array | ArrayBuffer,
+    metadata?: UploadMetadata
+  ): Promise<UploadResult> {
+    return uploadBytes(this._ref(path), data, metadata);
+  }
 }
