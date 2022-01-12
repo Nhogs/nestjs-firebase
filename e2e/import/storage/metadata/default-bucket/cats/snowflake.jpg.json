@@ -1,0 +1,19 @@
+{
+  "name": "cats/snowflake.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1641911560384,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "1f6f9332-150b-4a91-80e7-8732ac84265e"
+  ],
+  "timeCreated": "2022-01-11T14:32:40.383Z",
+  "updated": "2022-01-11T14:32:40.383Z",
+  "size": 101863,
+  "md5Hash": "4ARVtd2wsI72c5+8OXpYAg==",
+  "crc32c": "2335032426"
+}

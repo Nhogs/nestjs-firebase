@@ -1,0 +1,19 @@
+{
+  "name": "cats/minnie.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1641911560373,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "d6d2d862-1739-47ef-82ec-7fdfee938766"
+  ],
+  "timeCreated": "2022-01-11T14:32:40.372Z",
+  "updated": "2022-01-11T14:32:40.373Z",
+  "size": 39979,
+  "md5Hash": "f1GT/Jbho2sqXCJWiB+ZIA==",
+  "crc32c": "3853679747"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "cats/marshmallow.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1641911560368,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "7a1dd7bf-7ca0-4f49-a56b-e8ef66dc985a"
+  ],
+  "timeCreated": "2022-01-11T14:32:40.367Z",
+  "updated": "2022-01-11T14:32:40.369Z",
+  "size": 28456,
+  "md5Hash": "7g7WRKAXiK2lk255qAiVZw==",
+  "crc32c": "3077143471"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "cats/puffin.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1641911560379,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "75095f8f-e184-44d9-bcbf-be1f467bd5e9"
+  ],
+  "timeCreated": "2022-01-11T14:32:40.378Z",
+  "updated": "2022-01-11T14:32:40.378Z",
+  "size": 131645,
+  "md5Hash": "FlU5sV4TOb+qhMMXdISioQ==",
+  "crc32c": "1796372143"
+}

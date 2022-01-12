@@ -10,7 +10,7 @@ import { initializeApp } from "firebase/app";
 import { StorageService } from "./service";
 import { FIREBASE_APP, FIREBASE_CONFIG } from "./firebase.constants";
 import { FirebaseConfig } from "./interface";
-import { AuthService } from "./service/auth.service";
+import { AuthService } from "./service";
 
 export const createApp = async (config: FirebaseConfig) => {
   return initializeApp(config);

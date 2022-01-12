@@ -1,0 +1,19 @@
+{
+  "name": "cats/jellybean.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1641911560362,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "e56ec9d7-af49-4f67-af8c-e5cbf3ecfee9"
+  ],
+  "timeCreated": "2022-01-11T14:32:40.361Z",
+  "updated": "2022-01-11T14:32:40.363Z",
+  "size": 34036,
+  "md5Hash": "eQBPERZXGcrFmfL7zLgBVw==",
+  "crc32c": "2419670733"
+}

@@ -1,6 +1,9 @@
+import { FirebaseEmulatorConfig } from "./firebase-emulator-config";
+
 export interface FirebaseConfig {
   projectId: string;
   apiKey?: string;
   authDomain?: string;
-  emulator?: boolean;
+  storageBucket?: string;
+  emulator?: FirebaseEmulatorConfig;
 }

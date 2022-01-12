@@ -1,6 +1,6 @@
-import { Inject, Injectable, Logger } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { FirebaseApp } from "firebase/app";
-import { FIREBASE_APP, FIREBASE_CONFIG } from "../firebase.constants";
+import { FIREBASE_APP, FIREBASE_CONFIG } from "../../firebase.constants";
 import {
   connectAuthEmulator,
   createUserWithEmailAndPassword,
@@ -8,19 +8,18 @@ import {
   signInWithEmailAndPassword,
   UserCredential,
 } from "firebase/auth";
-import { FirebaseConfig } from "../interface";
+import { FirebaseConfig } from "../../interface";
 
 @Injectable()
 export class AuthService {
-  private readonly _logger = new Logger(AuthService.name);
   private readonly _auth;
   constructor(
     @Inject(FIREBASE_APP) private readonly firebaseApp: FirebaseApp,
     @Inject(FIREBASE_CONFIG) private readonly firebaseConfig: FirebaseConfig
   ) {
     this._auth = getAuth(this.firebaseApp);
-    if (this.firebaseConfig.emulator) {
-      connectAuthEmulator(this._auth, "http://localhost:9099");
+    if (this.firebaseConfig.emulator?.authUrl) {
+      connectAuthEmulator(this._auth, this.firebaseConfig.emulator?.authUrl);
     }
   }
 
