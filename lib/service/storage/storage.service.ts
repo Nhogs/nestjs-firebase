@@ -3,13 +3,16 @@ import { FirebaseApp } from "firebase/app";
 import {
   connectStorageEmulator,
   deleteObject,
+  getBytes,
   getDownloadURL,
   getMetadata,
   getStorage,
+  getStream,
   list,
   listAll,
   ListOptions,
   ref,
+  SettableMetadata,
   StorageReference,
   StringFormat,
   updateMetadata,
@@ -61,7 +64,7 @@ export class StorageService {
    */
   async uploadBytes(
     path: string,
-    data: Blob | Uint8Array | ArrayBuffer,
+    data: Uint8Array | ArrayBuffer,
     metadata?: UploadMetadata
   ): Promise<UploadResult> {
     return uploadBytes(this.ref(path), data, metadata);
@@ -87,37 +90,55 @@ export class StorageService {
   /**
    * Manage Uploads
    *
+   * @param path
    * @param data
    * @param metadata
    */
   uploadBytesResumable(
-    data: Blob | Uint8Array | ArrayBuffer,
+    path: string,
+    data: Uint8Array | ArrayBuffer,
     metadata?: UploadMetadata
   ) {
-    return uploadBytesResumable(this.ref(), data, metadata);
+    return uploadBytesResumable(this.ref(path), data, metadata);
   }
 
-  async getDownloadURL(path: string): Promise<string> {
+  // Download Files (https://firebase.google.com/docs/storage/web/download-files)
+
+  async getDownloadURL(path: string) {
     return getDownloadURL(this.ref(path));
   }
+
+  async getBytes(path: string, maxDownloadSizeBytes?: number) {
+    return getBytes(this.ref(path), maxDownloadSizeBytes);
+  }
+
+  async getStream(path: string, maxDownloadSizeBytes?: number) {
+    return getStream(this.ref(path), maxDownloadSizeBytes);
+  }
+
+  // File Metadata (https://firebase.google.com/docs/storage/web/file-metadata)
 
   async getMetadata(path: string) {
     return getMetadata(this.ref(path));
   }
 
-  async updateMetadata(path: string, metadata?: UploadMetadata) {
+  async updateMetadata(path: string, metadata?: SettableMetadata) {
     return updateMetadata(this.ref(path), metadata);
   }
+
+  // Delete Files (https://firebase.google.com/docs/storage/web/delete-files)
 
   async deleteObject(path: string) {
     return deleteObject(this.ref(path));
   }
 
+  // List Files
+
   listAll(path: string) {
     return listAll(this.ref(path));
   }
 
-  list(path: string, options: ListOptions) {
+  list(path: string, options?: ListOptions) {
     return list(this.ref(path), options);
   }
 }
