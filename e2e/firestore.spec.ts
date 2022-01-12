@@ -1,8 +1,8 @@
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { Server } from "http";
-import { CatsService } from "../src/cats/cats.service";
-import { AppModule } from "../src/app.module";
+import { CatsService } from "./src/cats/cats.service";
+import { AppModule } from "./src/app.module";
 import axios from "axios";
 
 describe("Firebase Firestore", () => {

@@ -14,7 +14,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
-    "emulators": "firebase emulators:start --project demo-nhogs-nestjs-firebase --import=test/e2e/import",
+    "emulators": "firebase emulators:start --project demo-nhogs-nestjs-firebase --import=e2e/import",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "update": "npx npm-check-updates -u"
   },
@@ -52,11 +52,11 @@
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "@nestjs/common": "^8.2.4",
-    "@nestjs/core": "^8.2.4",
-    "firebase": "^9.6.2",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.2"
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/core": "^8.0.0",
+    "firebase": "^9.0.0",
+    "reflect-metadata": "^0.1.0",
+    "rxjs": "^6.0.0 || ^7.0.0"
   },
   "jest": {
     "moduleFileExtensions": [

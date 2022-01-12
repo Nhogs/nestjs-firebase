@@ -1,8 +1,8 @@
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import axios from "axios";
-import { AppAsyncModule } from "../src/app.async.module";
-import { AuthService } from "../../lib";
+import { AppAsyncModule } from "./src/app.async.module";
+import { AuthService } from "../lib";
 
 describe("Firebase Auth async", () => {
   let module: TestingModule;

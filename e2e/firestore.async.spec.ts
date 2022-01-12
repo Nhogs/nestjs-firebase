@@ -1,9 +1,9 @@
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { Server } from "http";
-import { CatsService } from "../src/cats/cats.service";
+import { CatsService } from "./src/cats/cats.service";
 import axios from "axios";
-import { AppAsyncModule } from "../src/app.async.module";
+import { AppAsyncModule } from "./src/app.async.module";
 
 describe("Firebase Firestore async", () => {
   let server: Server;

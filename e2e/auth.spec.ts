@@ -1,9 +1,9 @@
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { Server } from "http";
-import { AppModule } from "../src/app.module";
+import { AppModule } from "./src/app.module";
 import axios from "axios";
-import { AuthService } from "../../lib";
+import { AuthService } from "../lib";
 
 describe("Firebase Auth", () => {
   let server: Server;
