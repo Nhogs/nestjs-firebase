@@ -26,7 +26,7 @@ import { CatsModule } from "./cats/cats.module";
     }),
     CatsModule,
     ConfigModule.forRoot({
-      envFilePath: "./test/src/.test.env",
+      envFilePath: "./e2e/src/.test.env",
     }),
   ],
 })
