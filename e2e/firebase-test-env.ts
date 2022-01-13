@@ -4,4 +4,6 @@ export const FirebaseTestEnv = {
   storageBucket: "default-bucket",
   storageHost: "localhost",
   storagePort: 9199,
+  firestoreHost: "localhost",
+  firestorePort: 8080,
 };

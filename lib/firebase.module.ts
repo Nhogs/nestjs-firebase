@@ -4,13 +4,11 @@ import {
   OnApplicationShutdown,
   Provider,
 } from "@nestjs/common";
-import { FirestoreService } from "./service";
+import { AuthService, FirestoreService, StorageService } from "./service";
 import { ConfigModule } from "@nestjs/config";
-import { initializeApp } from "firebase/app";
-import { StorageService } from "./service";
+import { deleteApp, getApps, initializeApp } from "firebase/app";
 import { FIREBASE_APP, FIREBASE_CONFIG } from "./firebase.constants";
 import { FirebaseConfig } from "./interface";
-import { AuthService } from "./service";
 
 export const createApp = async (config: FirebaseConfig) => {
   return initializeApp(config);
@@ -18,7 +16,11 @@ export const createApp = async (config: FirebaseConfig) => {
 
 @Module({})
 export class FirebaseModule implements OnApplicationShutdown {
-  async onApplicationShutdown() {}
+  async onApplicationShutdown() {
+    getApps().forEach((app) => {
+      deleteApp(app);
+    });
+  }
 
   static forRoot(config: FirebaseConfig): DynamicModule {
     return {

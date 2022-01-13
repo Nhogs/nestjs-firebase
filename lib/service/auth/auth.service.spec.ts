@@ -1,22 +1,45 @@
 import { INestApplication } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
+import { Test } from "@nestjs/testing";
+import { Server } from "http";
 import axios from "axios";
-import { AppAsyncModule } from "./src/app.async.module";
-import { AuthService } from "../lib";
+import { AuthService, FirebaseModule } from "../../index";
+import { FirebaseTestEnv } from "../../../e2e/firebase-test-env";
 
-describe("Firebase Auth async", () => {
-  let module: TestingModule;
+describe("Firebase Auth Service", () => {
+  let server: Server;
   let app: INestApplication;
   let authService: AuthService;
 
   beforeAll(async () => {
-    module = await Test.createTestingModule({
-      imports: [AppAsyncModule],
+    const module = await Test.createTestingModule({
+      imports: [
+        FirebaseModule.forRoot({
+          apiKey: FirebaseTestEnv.apiKey,
+          projectId: FirebaseTestEnv.projectId,
+          emulator: {
+            authUrl: "http://localhost:9099",
+          },
+        }),
+      ],
     }).compile();
 
     app = module.createNestApplication();
+    server = app.getHttpServer();
     await app.init();
     authService = module.get<AuthService>(AuthService);
+  });
+
+  it(`should fail sign in user`, async () => {
+    try {
+      await authService.signInWithEmailAndPassword(
+        "user.email@gmail.com",
+        "userpassword"
+      );
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot(
+        `[FirebaseError: Firebase: Error (auth/user-not-found).]`
+      );
+    }
   });
 
   it(`should create and sign in user`, async () => {

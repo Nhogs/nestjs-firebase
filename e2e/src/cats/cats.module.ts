@@ -4,7 +4,7 @@ import { CatsService } from "./cats.service";
 import { FirebaseModule } from "../../../lib";
 
 @Module({
-  imports: [FirebaseModule],
+  imports: [FirebaseModule], // TODO add forFeature helpers for cat entity
   controllers: [CatsController],
   providers: [CatsService],
 })
