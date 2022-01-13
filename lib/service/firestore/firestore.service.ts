@@ -38,7 +38,6 @@ export class FirestoreService {
     @Inject(FIREBASE_APP) private readonly firebaseApp: FirebaseApp,
     @Inject(FIREBASE_CONFIG) private readonly firebaseConfig: FirebaseConfig
   ) {
-    console.log("FirestoreService constructor");
     this._firestore = getFirestore(this.firebaseApp);
     if (this.firebaseConfig.emulator?.firestore) {
       connectFirestoreEmulator(

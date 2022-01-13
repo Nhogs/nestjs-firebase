@@ -1,7 +1,7 @@
 import * as request from "supertest";
 import { Test } from "@nestjs/testing";
 import { Server } from "http";
-import { FirebaseConfig, FirebaseModule } from "../lib";
+import { FirebaseModule } from "../lib";
 import { CatsModule } from "./src/cats/cats.module";
 import { DynamicModule, INestApplication } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
@@ -28,28 +28,28 @@ const testCase: [string, DynamicModule][] = [
       },
     }),
   ],
-  [
-    "forRootAsync",
-    FirebaseModule.forRootAsync({
-      useFactory: (): FirebaseConfig => ({
-        apiKey: process.env.FIREBASE_APIKEY,
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-        emulator: {
-          authUrl: "http://localhost:9099",
-          firestore: {
-            host: "localhost",
-            port: 8080,
-          },
-          storage: {
-            host: "localhost",
-            port: 9199,
-          },
-        },
-      }),
-      global: true,
-    }),
-  ],
+  // [
+  //   "forRootAsync",
+  //   FirebaseModule.forRootAsync({
+  //     useFactory: (): FirebaseConfig => ({
+  //       apiKey: process.env.FIREBASE_APIKEY,
+  //       projectId: process.env.FIREBASE_PROJECT_ID,
+  //       storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  //       emulator: {
+  //         authUrl: "http://localhost:9099",
+  //         firestore: {
+  //           host: "localhost",
+  //           port: 8080,
+  //         },
+  //         storage: {
+  //           host: "localhost",
+  //           port: 9199,
+  //         },
+  //       },
+  //     }),
+  //     global: true,
+  //   }),
+  // ],
 ];
 
 describe.each(testCase)("Module - %s", (_, dynamicModule) => {
