@@ -11,15 +11,23 @@ import { FIREBASE_APP, FIREBASE_CONFIG } from "./firebase.constants";
 import { FirebaseConfig } from "./interface";
 
 export const createApp = async (config: FirebaseConfig) => {
-  return initializeApp(config);
+  return initializeApp(config, config.appName);
 };
 
 @Module({})
 export class FirebaseModule implements OnApplicationShutdown {
   async onApplicationShutdown() {
-    getApps().forEach((app) => {
-      deleteApp(app);
-    });
+    for (const app of getApps()) {
+      const name = app.name;
+      console.log("deleting:" + name + "...");
+      deleteApp(app)
+        .then(function () {
+          console.log("App " + name + " deleted successfully");
+        })
+        .catch(function (error) {
+          console.log("Error deleting app " + name + ":", error);
+        });
+    }
   }
 
   static forRoot(config: FirebaseConfig): DynamicModule {

@@ -44,6 +44,7 @@ describe("Firebase Storage Service", () => {
     const module = await Test.createTestingModule({
       imports: [
         FirebaseModule.forRoot({
+          appName: "firestore-test",
           apiKey: FirebaseTestEnv.apiKey,
           projectId: FirebaseTestEnv.projectId,
           emulator: {
@@ -60,6 +61,10 @@ describe("Firebase Storage Service", () => {
     server = app.getHttpServer();
     await app.init();
     firestoreService = module.get<FirestoreService>(FirestoreService);
+  });
+
+  afterAll(async () => {
+    return await app.close();
   });
 
   it("should setDoc", async () => {
@@ -277,9 +282,5 @@ describe("Firebase Storage Service", () => {
       .then(function (response) {
         expect(response.status).toMatchInlineSnapshot(`200`);
       });
-  });
-
-  afterAll(async () => {
-    return await app.close();
   });
 });

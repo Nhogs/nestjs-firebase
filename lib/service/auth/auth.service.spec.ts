@@ -14,6 +14,7 @@ describe("Firebase Auth Service", () => {
     const module = await Test.createTestingModule({
       imports: [
         FirebaseModule.forRoot({
+          appName: "auth-test",
           apiKey: FirebaseTestEnv.apiKey,
           projectId: FirebaseTestEnv.projectId,
           emulator: {
@@ -27,6 +28,10 @@ describe("Firebase Auth Service", () => {
     server = app.getHttpServer();
     await app.init();
     authService = module.get<AuthService>(AuthService);
+  });
+
+  afterAll(async () => {
+    return await app.close();
   });
 
   it(`should fail sign in user`, async () => {
@@ -70,9 +75,5 @@ describe("Firebase Auth Service", () => {
       .then(function (response) {
         expect(response.status).toMatchInlineSnapshot(`200`);
       });
-  });
-
-  afterAll(async () => {
-    return await app.close();
   });
 });

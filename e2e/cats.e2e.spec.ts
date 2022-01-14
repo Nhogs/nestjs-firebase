@@ -12,6 +12,7 @@ const testCase: [string, DynamicModule][] = [
   [
     "forRoot",
     FirebaseModule.forRoot({
+      appName: "cat-test",
       apiKey: "API-KEY-FOR-TEST",
       projectId: "demo-nhogs-nestjs-firebase",
       storageBucket: "default-bucket",
@@ -32,6 +33,7 @@ const testCase: [string, DynamicModule][] = [
     "forRootAsync",
     FirebaseModule.forRootAsync({
       useFactory: (): FirebaseConfig => ({
+        appName: "cat-test-async",
         apiKey: process.env.FIREBASE_APIKEY,
         projectId: process.env.FIREBASE_PROJECT_ID,
         storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
@@ -69,7 +71,21 @@ describe.each(testCase)("Module - %s", (_, dynamicModule) => {
 
     app = module.createNestApplication();
     server = app.getHttpServer();
-    await app.init();
+    return await app.init();
+  });
+
+  afterEach(async () => {
+    return await axios
+      .delete(
+        "http://localhost:8080/emulator/v1/projects/demo-nhogs-nestjs-firebase/databases/(default)/documents"
+      )
+      .then(function (response) {
+        expect(response.status).toMatchInlineSnapshot(`200`);
+      });
+  });
+
+  afterAll(async () => {
+    return await app.close();
   });
 
   it(`should /POST & /GET cat`, (done) => {
@@ -158,18 +174,4 @@ describe.each(testCase)("Module - %s", (_, dynamicModule) => {
           });
       });
   }, 20000);
-
-  afterEach(async () => {
-    return await axios
-      .delete(
-        "http://localhost:8080/emulator/v1/projects/demo-nhogs-nestjs-firebase/databases/(default)/documents"
-      )
-      .then(function (response) {
-        expect(response.status).toMatchInlineSnapshot(`200`);
-      });
-  });
-
-  afterAll(async () => {
-    return await app.close();
-  });
 });
