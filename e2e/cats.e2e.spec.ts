@@ -86,7 +86,7 @@ describe.each(testCase)("Module - %s", (_, dynamicModule) => {
 
   afterAll(async () => {
     return await app.close();
-  });
+  }, 50000);
 
   it(`should /POST & /GET cat`, (done) => {
     const httpServer = app.getHttpServer();
@@ -117,7 +117,7 @@ describe.each(testCase)("Module - %s", (_, dynamicModule) => {
             done();
           });
       });
-  }, 20000);
+  }, 50000);
 
   it(`should /POST all & /GET all`, (done) => {
     const httpServer = app.getHttpServer();
@@ -173,5 +173,5 @@ describe.each(testCase)("Module - %s", (_, dynamicModule) => {
             done();
           });
       });
-  }, 20000);
+  }, 50000);
 });
