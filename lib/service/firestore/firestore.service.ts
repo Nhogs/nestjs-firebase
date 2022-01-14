@@ -2,94 +2,155 @@ import { Inject, Injectable } from "@nestjs/common";
 import { FirebaseApp } from "firebase/app";
 import {
   addDoc,
-  collection as firebaseCollection,
+  collection,
+  collectionGroup,
   CollectionReference,
   connectFirestoreEmulator,
+  deleteDoc,
   doc,
-  FirestoreDataConverter,
+  DocumentReference,
+  DocumentSnapshot,
+  FieldPath,
   getDoc,
   getDocs,
   getFirestore,
+  query,
+  Query,
+  QueryConstraint,
+  QuerySnapshot,
+  runTransaction,
   setDoc,
+  Transaction,
+  UpdateData,
+  updateDoc,
+  where,
+  WhereFilterOp,
+  WithFieldValue,
+  writeBatch,
 } from "firebase/firestore";
 import { FIREBASE_APP, FIREBASE_CONFIG } from "../../firebase.constants";
 import { FirebaseConfig } from "../../interface";
 
 @Injectable()
 export class FirestoreService {
-  private readonly _db;
+  private readonly _firestore;
   constructor(
     @Inject(FIREBASE_APP) private readonly firebaseApp: FirebaseApp,
     @Inject(FIREBASE_CONFIG) private readonly firebaseConfig: FirebaseConfig
   ) {
-    this._db = getFirestore(this.firebaseApp);
+    this._firestore = getFirestore(this.firebaseApp);
     if (this.firebaseConfig.emulator?.firestore) {
       connectFirestoreEmulator(
-        this._db,
+        this._firestore,
         this.firebaseConfig.emulator.firestore.host || "localhost",
         this.firebaseConfig.emulator.firestore.port || 8080
       );
     }
   }
 
-  async getDocs<T>(
-    collection: string,
-    converter: FirestoreDataConverter<T>
-  ): Promise<T[]> {
-    const collectionRef: CollectionReference<T> = firebaseCollection(
-      this._db,
-      collection
-    ).withConverter<T>(converter);
-
-    const querySnapshot = await getDocs<T>(collectionRef);
-
-    const results: T[] = [];
-    querySnapshot.forEach((result) => {
-      if (result.exists()) {
-        results.push(result.data());
-      }
-    });
-
-    return results;
+  /**
+   * @example doc('users', 'alovelace');
+   * @example doc('users/alovelace');
+   */
+  doc(path: string, ...pathSegments: string[]): DocumentReference {
+    return doc(this._firestore, path, ...pathSegments);
   }
 
-  async getDoc<T>(
-    collection: string,
-    id: string,
-    converter: FirestoreDataConverter<T>
-  ): Promise<T | null> {
-    const ref = doc(this._db, collection, id).withConverter<T>(converter);
-    const snapshot = await getDoc<T>(ref);
-
-    if (snapshot.exists()) {
-      return snapshot.data();
-    } else {
-      return null;
-    }
+  /**
+   * @example collection('users');
+   */
+  collection(path: string, ...pathSegments: string[]): CollectionReference {
+    return collection(this._firestore, path, ...pathSegments);
   }
 
-  async setDoc<T>(
-    path,
-    id: string,
-    data: T,
-    converter?: FirestoreDataConverter<T>
-  ): Promise<T> {
-    const ref = doc(this._db, path, id).withConverter<T>(converter);
-    await setDoc(ref, data);
-    const snapshot = await getDoc<T>(ref);
-
-    return snapshot.data();
+  collectionGroup(collectionId: string): Query {
+    return collectionGroup(this._firestore, collectionId);
   }
 
-  async addDoc<T>(
-    path,
-    data: T,
-    converter?: FirestoreDataConverter<T>
-  ): Promise<T> {
-    const dataDocRef = await addDoc(firebaseCollection(this._db, path), data);
-    const ref = dataDocRef.withConverter<T>(converter);
-    const snapshot = await getDoc<T>(ref);
+  // Add data (https://firebase.google.com/docs/firestore/manage-data/add-data)
 
-    return snapshot.data();
+  /**
+   * To create or overwrite a single document.
+   * You must specify an ID for the document.
+   *
+   * @example await setDoc(doc(db, "cities", "new-city-id"), data)
+   */
+  setDoc<T>(
+    reference: DocumentReference<T>,
+    data: WithFieldValue<T>
+  ): Promise<void> {
+    return setDoc(reference, data);
+  }
+
+  /**
+   * Add a new document to specified CollectionReference with the given data, assigning it a document ID automatically.
+   */
+  addDoc<T>(
+    reference: CollectionReference<T>,
+    data: WithFieldValue<T>
+  ): Promise<DocumentReference<T>> {
+    return addDoc(reference, data);
+  }
+
+  /**
+   * Updates fields in the document referred to by the specified DocumentReference.
+   * The update will fail if applied to a document that does not exist.
+   */
+  updateDoc<T>(
+    reference: DocumentReference<T>,
+    data: UpdateData<T>
+  ): Promise<void> {
+    return updateDoc(reference, data);
+  }
+
+  /**
+   * Creates a write batch
+   */
+  writeBatch() {
+    return writeBatch(this._firestore);
+  }
+
+  /**
+   * Executes the given updateFunction and then attempts to commit the changes applied within the transaction.
+   */
+  runTransaction<T>(updateFunction: (transaction: Transaction) => Promise<T>) {
+    return runTransaction(this._firestore, updateFunction);
+  }
+
+  // Delete
+
+  /**
+   * Deletes the document referred to by the specified DocumentReference.
+   */
+  deleteDoc<T>(reference: DocumentReference<T>): Promise<void> {
+    return deleteDoc(reference);
+  }
+
+  // Read Data (https://firebase.google.com/docs/firestore/query-data/get-data)
+
+  /**
+   * Reads the document referred to by this DocumentReference.
+   */
+  getDoc<T>(reference: DocumentReference<T>): Promise<DocumentSnapshot<T>> {
+    return getDoc<T>(reference);
+  }
+
+  /**
+   * Executes the query and returns the results as a QuerySnapshot.
+   */
+  getDocs<T>(query: Query<T>): Promise<QuerySnapshot<T>> {
+    return getDocs<T>(query);
+  }
+
+  query<T>(q: Query<T>, ...queryConstraints: QueryConstraint[]): Query<T> {
+    return query<T>(q, ...queryConstraints);
+  }
+
+  where(
+    fieldPath: string | FieldPath,
+    opStr: WhereFilterOp,
+    value: unknown
+  ): QueryConstraint {
+    return where(fieldPath, opStr, value);
   }
 }

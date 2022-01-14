@@ -13,6 +13,7 @@ describe("Firebase Storage", () => {
     const module = await Test.createTestingModule({
       imports: [
         FirebaseModule.forRoot({
+          appName: "storage-test",
           apiKey: FirebaseTestEnv.apiKey,
           projectId: FirebaseTestEnv.projectId,
           storageBucket: FirebaseTestEnv.storageBucket,
@@ -30,6 +31,10 @@ describe("Firebase Storage", () => {
     server = app.getHttpServer();
     await app.init();
     storageService = module.get<StorageService>(StorageService);
+  });
+
+  afterAll(async () => {
+    return await app.close();
   });
 
   const uint8ArrayPNG = new Uint8Array([
@@ -306,9 +311,5 @@ describe("Firebase Storage", () => {
       ]
     `);
     expect(secondPage.nextPageToken).toMatchInlineSnapshot(`undefined`);
-  });
-
-  afterAll(async () => {
-    return await app.close();
   });
 });
