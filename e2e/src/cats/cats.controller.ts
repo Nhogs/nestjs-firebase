@@ -31,7 +31,9 @@ export class CatsController {
   @Get("all")
   async findAll(): Promise<CatDto[]> {
     return await Promise.all(
-      (await this.catsService.findAll()).map(async (d) => {
+      (
+        await this.catsService.findAll()
+      ).map(async (d) => {
         const cat = d.data();
 
         return {

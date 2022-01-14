@@ -7,7 +7,6 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   UserCredential,
-  signOut,
 } from "firebase/auth";
 import { FirebaseConfig } from "../../interface";
 
@@ -36,9 +35,5 @@ export class AuthService {
     password: string
   ): Promise<UserCredential> {
     return signInWithEmailAndPassword(this._auth, email, password);
-  }
-
-  async signOut(): Promise<void> {
-    return signOut(this._auth);
   }
 }
