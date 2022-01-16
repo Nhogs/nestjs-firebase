@@ -12,6 +12,7 @@
 [![CI](https://github.com/nhogs/nestjs-firebase/actions/workflows/ci.yml/badge.svg)](https://github.com/Nhogs/nestjs-firebase/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/Nhogs/nestjs-firebase/branch/main/graph/badge.svg?token=ZRPM5WFGO2)](https://codecov.io/gh/Nhogs/nestjs-firebase)
 [![Maintainability](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/maintainability)](https://codeclimate.com/github/Nhogs/nestjs-firebase/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/test_coverage)](https://codeclimate.com/github/Nhogs/nestjs-firebase/test_coverage)
 
 ## Installation
 
@@ -48,6 +49,7 @@ export class AppModule {}
 [Check here for an e2e test with real example on Cat module](e2e/src)
 
 This module is a simple wrapper on Firebase API and export 3 services.
+
 - Cloud Firestore
 - Storage
 - Authentication
@@ -102,6 +104,7 @@ it(`should upload string`, async () => {
   );
 });
 ```
+
 See [storage.service.spec.ts](lib/service/storage/storage.service.spec.ts) for detailed usage.
 
 ### Authentication
