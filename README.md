@@ -10,7 +10,6 @@
 ## [Firebase](https://firebase.google.com/) module for [NestJS](https://github.com/nestjs/nest).
 
 [![CI](https://github.com/nhogs/nestjs-firebase/actions/workflows/ci.yml/badge.svg)](https://github.com/Nhogs/nestjs-firebase/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/Nhogs/nestjs-firebase/branch/main/graph/badge.svg?token=ZRPM5WFGO2)](https://codecov.io/gh/Nhogs/nestjs-firebase)
 [![Maintainability](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/maintainability)](https://codeclimate.com/github/Nhogs/nestjs-firebase/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/test_coverage)](https://codeclimate.com/github/Nhogs/nestjs-firebase/test_coverage)
 
@@ -24,6 +23,8 @@ $ npm i --save @nhogs/nestjs-firebase
 
 You first need to have a running firebase project.
 See [Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup)
+
+:warning: this module is currently using [Firebase client API](https://firebase.google.com/docs/web/setup) and not yet the [Firebase admin SDK](https://firebase.google.com/docs/admin/setup)
 
 ### Module
 
