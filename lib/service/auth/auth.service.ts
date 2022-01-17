@@ -6,7 +6,8 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
-  UserCredential,
+  signOut,
+  signInAnonymously,
 } from "firebase/auth";
 import { FirebaseConfig } from "../../interface";
 
@@ -23,17 +24,23 @@ export class AuthService {
     }
   }
 
-  async createUserWithEmailAndPassword(
-    email: string,
-    password: string
-  ): Promise<UserCredential> {
+  currentUser() {
+    return this._auth.currentUser;
+  }
+
+  async createUserWithEmailAndPassword(email: string, password: string) {
     return createUserWithEmailAndPassword(this._auth, email, password);
   }
 
-  async signInWithEmailAndPassword(
-    email: string,
-    password: string
-  ): Promise<UserCredential> {
+  async signInWithEmailAndPassword(email: string, password: string) {
     return signInWithEmailAndPassword(this._auth, email, password);
+  }
+
+  async signInAnonymously() {
+    return signInAnonymously(this._auth);
+  }
+
+  async signOut() {
+    return signOut(this._auth);
   }
 }

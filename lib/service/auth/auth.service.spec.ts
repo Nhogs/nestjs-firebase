@@ -3,7 +3,7 @@ import { Test } from "@nestjs/testing";
 import { Server } from "http";
 import axios from "axios";
 import { AuthService, FirebaseModule } from "../../index";
-import { FirebaseTestEnv } from "../../../e2e/firebase-test-env";
+import { FirebaseEmulatorEnv } from "../../../e2e/firebase-emulator-env";
 
 describe("Firebase Auth Service", () => {
   let server: Server;
@@ -15,10 +15,10 @@ describe("Firebase Auth Service", () => {
       imports: [
         FirebaseModule.forRoot({
           appName: "auth-test",
-          apiKey: FirebaseTestEnv.apiKey,
-          projectId: FirebaseTestEnv.projectId,
+          apiKey: FirebaseEmulatorEnv.apiKey,
+          projectId: FirebaseEmulatorEnv.projectId,
           emulator: {
-            authUrl: "http://localhost:9099",
+            authUrl: FirebaseEmulatorEnv.authUrl,
           },
         }),
       ],
@@ -65,6 +65,34 @@ describe("Firebase Auth Service", () => {
     ).user;
 
     expect(user2.email).toMatchInlineSnapshot(`"user.email@gmail.com"`);
+  });
+
+  it(`should signInAnonymously`, async () => {
+    const userCredential = await authService.signInAnonymously();
+
+    const toCheck = {
+      operationType: userCredential.operationType,
+      user: {
+        isAnonymous: userCredential.user.isAnonymous,
+      },
+    };
+    expect(toCheck).toMatchInlineSnapshot(`
+      Object {
+        "operationType": "signIn",
+        "user": Object {
+          "isAnonymous": true,
+        },
+      }
+    `);
+  });
+
+  it(`should signOut`, async () => {
+    await authService.signInAnonymously();
+
+    expect((await authService.currentUser()).isAnonymous).toBeTruthy();
+
+    await authService.signOut();
+    expect(await authService.currentUser()).toBeNull();
   });
 
   afterEach(async () => {

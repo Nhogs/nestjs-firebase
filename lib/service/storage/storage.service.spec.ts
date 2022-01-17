@@ -2,7 +2,7 @@ import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { Server } from "http";
 import { FirebaseModule, StorageService } from "../../index";
-import { FirebaseTestEnv } from "../../../e2e/firebase-test-env";
+import { FirebaseEmulatorEnv } from "../../../e2e/firebase-emulator-env";
 
 describe("Firebase Storage", () => {
   let server: Server;
@@ -14,13 +14,13 @@ describe("Firebase Storage", () => {
       imports: [
         FirebaseModule.forRoot({
           appName: "storage-test",
-          apiKey: FirebaseTestEnv.apiKey,
-          projectId: FirebaseTestEnv.projectId,
-          storageBucket: FirebaseTestEnv.storageBucket,
+          apiKey: FirebaseEmulatorEnv.apiKey,
+          projectId: FirebaseEmulatorEnv.projectId,
+          storageBucket: FirebaseEmulatorEnv.storageBucket,
           emulator: {
             storage: {
-              host: FirebaseTestEnv.storageHost,
-              port: FirebaseTestEnv.storagePort,
+              host: FirebaseEmulatorEnv.storageHost,
+              port: FirebaseEmulatorEnv.storagePort,
             },
           },
         }),
@@ -51,16 +51,16 @@ describe("Firebase Storage", () => {
     const storageReference = storageService.ref();
 
     expect(storageReference.toString()).toEqual(
-      `gs://${FirebaseTestEnv.storageBucket}/`
+      `gs://${FirebaseEmulatorEnv.storageBucket}/`
     );
-    expect(storageReference.bucket).toEqual(FirebaseTestEnv.storageBucket);
+    expect(storageReference.bucket).toEqual(FirebaseEmulatorEnv.storageBucket);
     expect(storageReference.name).toMatchInlineSnapshot(`""`);
   });
 
   it("should create a reference on a folder", () => {
     const storageReference = storageService.ref("cats");
     expect(storageReference.toString()).toEqual(
-      `gs://${FirebaseTestEnv.storageBucket}/cats`
+      `gs://${FirebaseEmulatorEnv.storageBucket}/cats`
     );
     expect(storageReference.name).toMatchInlineSnapshot(`"cats"`);
   });
@@ -86,7 +86,7 @@ describe("Firebase Storage", () => {
     const downloadUrl = await storageService.getDownloadURL(fileName);
 
     expect(downloadUrl).toEqual(
-      `http://${FirebaseTestEnv.storageHost}:${FirebaseTestEnv.storagePort}/v0/b/default-bucket/o/${fileName}?alt=media&token=custom-token-for-test`
+      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/default-bucket/o/${fileName}?alt=media&token=custom-token-for-test`
     );
   });
 
@@ -107,7 +107,7 @@ describe("Firebase Storage", () => {
 
     const downloadUrl = await storageService.getDownloadURL(fileName);
     expect(downloadUrl).toEqual(
-      `http://${FirebaseTestEnv.storageHost}:${FirebaseTestEnv.storagePort}/v0/b/${FirebaseTestEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`
+      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/${FirebaseEmulatorEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`
     );
   });
 
@@ -262,7 +262,7 @@ describe("Firebase Storage", () => {
     });
 
     expect(await storageService.getDownloadURL(fileName)).toEqual(
-      `http://${FirebaseTestEnv.storageHost}:${FirebaseTestEnv.storagePort}/v0/b/${FirebaseTestEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`
+      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/${FirebaseEmulatorEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`
     );
 
     await storageService.deleteObject(fileName);

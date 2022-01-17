@@ -2,7 +2,7 @@ import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { Server } from "http";
 import { FirebaseModule, FirestoreService } from "../../index";
-import { FirebaseTestEnv } from "../../../e2e/firebase-test-env";
+import { FirebaseEmulatorEnv } from "../../../e2e/firebase-emulator-env";
 import axios from "axios";
 
 class User {
@@ -45,12 +45,12 @@ describe("Firebase Storage Service", () => {
       imports: [
         FirebaseModule.forRoot({
           appName: "firestore-test",
-          apiKey: FirebaseTestEnv.apiKey,
-          projectId: FirebaseTestEnv.projectId,
+          apiKey: FirebaseEmulatorEnv.apiKey,
+          projectId: FirebaseEmulatorEnv.projectId,
           emulator: {
             firestore: {
-              host: FirebaseTestEnv.firestoreHost,
-              port: FirebaseTestEnv.firestorePort,
+              host: FirebaseEmulatorEnv.firestoreHost,
+              port: FirebaseEmulatorEnv.firestorePort,
             },
           },
         }),
@@ -277,7 +277,7 @@ describe("Firebase Storage Service", () => {
     // Delete all documents
     return await axios
       .delete(
-        `http://${FirebaseTestEnv.firestoreHost}:${FirebaseTestEnv.firestorePort}/emulator/v1/projects/${FirebaseTestEnv.projectId}/databases/(default)/documents`
+        `http://${FirebaseEmulatorEnv.firestoreHost}:${FirebaseEmulatorEnv.firestorePort}/emulator/v1/projects/${FirebaseEmulatorEnv.projectId}/databases/(default)/documents`
       )
       .then(function (response) {
         expect(response.status).toMatchInlineSnapshot(`200`);
