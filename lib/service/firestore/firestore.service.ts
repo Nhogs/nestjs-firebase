@@ -153,4 +153,21 @@ export class FirestoreService {
   ): QueryConstraint {
     return where(fieldPath, opStr, value);
   }
+
+  createDataWithIdConverter<T extends { id: string }>(type: new (props) => T) {
+    return {
+      toFirestore: (object: T) => {
+        const { id, ...data } = object;
+        return data;
+      },
+
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new type({
+          id: snapshot.id,
+          ...data,
+        });
+      },
+    };
+  }
 }
