@@ -13,6 +13,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/maintainability)](https://codeclimate.com/github/Nhogs/nestjs-firebase/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/test_coverage)](https://codeclimate.com/github/Nhogs/nestjs-firebase/test_coverage)
 
+<font size="1">Continuous Integration tests with [Github Action](https://github.com/Nhogs/nestjs-firebase/actions/workflows/ci.yml) on [Firebase Emulator Suite](https://firebase.google.com/docs/emulator-suite) </font>
+
 ## Installation
 
 [![npm](https://img.shields.io/npm/v/@nhogs/nestjs-firebase?label=%40nhogs%2Fnestjs-firebase&logo=npm)](https://www.npmjs.com/package/@nhogs/nestjs-firebase)
@@ -24,8 +26,10 @@ $ npm i --save @nhogs/nestjs-firebase
 You first need to have a running firebase project.
 See [Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup)
 
-:warning: this module is currently using [Firebase client API](https://firebase.google.com/docs/web/setup) and not yet the [Firebase admin SDK](https://firebase.google.com/docs/admin/setup)
-
+:warning: This module only uses Firebase client API 
+- [x] Use [Firebase client API](https://firebase.google.com/docs/web/setup)
+- [ ] Use [Firebase admin SDK](https://firebase.google.com/docs/admin/setup) 
+ 
 ### Module
 
 Add the module in app imports with project settings

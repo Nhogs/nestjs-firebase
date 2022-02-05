@@ -17,6 +17,20 @@ class User {
   age: number;
 }
 
+class UserWithId extends User {
+  constructor(data: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    age: number;
+  }) {
+    super(data.firstName, data.lastName, data.age);
+    this.id = data.id;
+  }
+
+  id: string;
+}
+
 const userConverter = {
   toFirestore: (user) => {
     return {
@@ -271,6 +285,37 @@ describe("Firebase Storage Service", () => {
         },
       ]
     `);
+  });
+
+  it("should createDataWithIdConverter", async () => {
+    const userWithIdConverter =
+      firestoreService.createDataWithIdConverter<UserWithId>(UserWithId);
+
+    const users = firestoreService
+      .collection("usersWithId")
+      .withConverter<UserWithId>(userWithIdConverter);
+
+    const ref = await firestoreService.addDoc<UserWithId>(
+      users,
+      new UserWithId({ id: null, ...u1 })
+    );
+
+    const snapshot = await firestoreService.getDoc(ref);
+
+    const data = snapshot.data();
+    expect(data).toMatchInlineSnapshot(
+      { id: expect.any(String) },
+      `
+      Object {
+        "age": 1,
+        "firstName": "fn1",
+        "id": Any<String>,
+        "lastName": "ln1",
+      }
+    `
+    );
+
+    expect(data.id).not.toBeNull();
   });
 
   afterEach(async () => {
