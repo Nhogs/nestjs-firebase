@@ -10,16 +10,23 @@ import {
   doc,
   DocumentReference,
   DocumentSnapshot,
+  endAt,
+  endBefore,
   FieldPath,
   getDoc,
   getDocs,
   getFirestore,
+  limit,
+  orderBy,
+  OrderByDirection,
   query,
   Query,
   QueryConstraint,
   QuerySnapshot,
   runTransaction,
   setDoc,
+  startAfter,
+  startAt,
   Transaction,
   UpdateData,
   updateDoc,
@@ -152,6 +159,33 @@ export class FirestoreService {
     value: unknown
   ): QueryConstraint {
     return where(fieldPath, opStr, value);
+  }
+
+  orderBy(
+    fieldPath: string | FieldPath,
+    directionStr?: OrderByDirection
+  ): QueryConstraint {
+    return orderBy(fieldPath, directionStr);
+  }
+
+  startAt(...fieldValues: unknown[]): QueryConstraint {
+    return startAt(...fieldValues);
+  }
+
+  endAt(...fieldValues: unknown[]): QueryConstraint {
+    return endAt(...fieldValues);
+  }
+
+  startAfter(...fieldValues: unknown[]): QueryConstraint {
+    return startAfter(...fieldValues);
+  }
+
+  endBefore(...fieldValues: unknown[]): QueryConstraint {
+    return endBefore(...fieldValues);
+  }
+
+  limit(l: number): QueryConstraint {
+    return limit(l);
   }
 
   createDataWithIdConverter<T extends { id: string }>(type: new (props) => T) {
