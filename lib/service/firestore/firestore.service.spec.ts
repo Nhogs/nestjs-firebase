@@ -318,6 +318,73 @@ describe("Firebase Storage Service", () => {
     expect(data.id).not.toBeNull();
   });
 
+  it("should query with advanced constraints", async () => {
+    const users = firestoreService
+      .collection("users")
+      .withConverter<User>(userConverter);
+
+    for (let i = 0; i < 25; i++) {
+      await firestoreService.addDoc<User>(
+        users,
+        new User("fn" + i, "ln" + i, i)
+      );
+    }
+
+    const q1 = firestoreService.query(
+      users,
+      firestoreService.orderBy("age", "desc"),
+      firestoreService.startAt(9),
+      firestoreService.endAt(7),
+      firestoreService.limit(2)
+    );
+
+    const querySnapshot1 = await firestoreService.getDocs(q1);
+    expect(querySnapshot1.docs.map((value) => value.data()))
+      .toMatchInlineSnapshot(`
+      Array [
+        User {
+          "age": 9,
+          "firstName": "fn9",
+          "lastName": "ln9",
+        },
+        User {
+          "age": 8,
+          "firstName": "fn8",
+          "lastName": "ln8",
+        },
+      ]
+    `);
+
+    const q2 = firestoreService.query(
+      users,
+      firestoreService.orderBy("firstName"),
+      firestoreService.startAfter("fn3"),
+      firestoreService.endBefore("fn7")
+    );
+
+    const querySnapshot2 = await firestoreService.getDocs(q2);
+    expect(querySnapshot2.docs.map((value) => value.data()))
+      .toMatchInlineSnapshot(`
+      Array [
+        User {
+          "age": 4,
+          "firstName": "fn4",
+          "lastName": "ln4",
+        },
+        User {
+          "age": 5,
+          "firstName": "fn5",
+          "lastName": "ln5",
+        },
+        User {
+          "age": 6,
+          "firstName": "fn6",
+          "lastName": "ln6",
+        },
+      ]
+    `);
+  });
+
   afterEach(async () => {
     // Delete all documents
     return await axios
