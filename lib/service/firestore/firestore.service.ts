@@ -8,6 +8,7 @@ import {
   connectFirestoreEmulator,
   deleteDoc,
   doc,
+  documentId,
   DocumentReference,
   DocumentSnapshot,
   endAt,
@@ -24,6 +25,7 @@ import {
   QueryConstraint,
   QuerySnapshot,
   runTransaction,
+  serverTimestamp,
   setDoc,
   startAfter,
   startAt,
@@ -186,6 +188,14 @@ export class FirestoreService {
 
   limit(l: number): QueryConstraint {
     return limit(l);
+  }
+
+  documentId(): FieldPath {
+    return documentId();
+  }
+
+  serverTimestamp(): FieldPath {
+    return serverTimestamp();
   }
 
   createDataWithIdConverter<T extends { id: string }>(type: new (props) => T) {

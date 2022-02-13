@@ -385,6 +385,56 @@ describe("Firebase Storage Service", () => {
     `);
   });
 
+  it("should order by document id", async () => {
+    const users = firestoreService
+      .collection("users")
+      .withConverter<User>(userConverter);
+
+    for (let i = 3; i >= 0; i--) {
+      await firestoreService.addDoc<User>(
+        users,
+        new User("fn" + i, "ln" + i, i)
+      );
+    }
+
+    const q1 = firestoreService.query(
+      users,
+      firestoreService.orderBy(firestoreService.documentId())
+    );
+
+    const querySnapshot1 = await firestoreService.getDocs(q1);
+    const ids = querySnapshot1.docs.map((value) => value.id);
+    const actual = ids.join(",");
+    const sorted = ids.sort().join(",");
+    expect(actual).toEqual(sorted);
+  });
+
+  it("should order by serverTimestamp", async () => {
+    const docs = firestoreService.collection("docs");
+
+    for (let i = 3; i >= 0; i--) {
+      await firestoreService.addDoc(docs, {
+        index: i,
+        time: firestoreService.serverTimestamp(),
+      });
+    }
+
+    const q = firestoreService.query(
+      docs,
+      firestoreService.orderBy("time", "desc")
+    );
+
+    const snap = await firestoreService.getDocs(q);
+    expect(snap.docs.map((d) => d.data().index)).toMatchInlineSnapshot(`
+      Array [
+        0,
+        1,
+        2,
+        3,
+      ]
+    `);
+  });
+
   afterEach(async () => {
     // Delete all documents
     return await axios
