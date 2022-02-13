@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/Nhogs"><img alt="nhogs logo" src="https://nhogs.com/nhogs_192.png"></a>
+  <a href="https://github.com/Nhogs"><img alt="nhogs logo" width="96" src="https://nhogs.com/nhogs_192.png"></a>
 </p>
 
 # @nhogs/nestjs-firebase
@@ -23,7 +23,7 @@
 $ npm i --save @nhogs/nestjs-firebase
 ```
 
-You first need to have a running firebase project.
+First you need to have a running firebase project.
 See [Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup)
 
 :warning: This module only uses Firebase client API 
