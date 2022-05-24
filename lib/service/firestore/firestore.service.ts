@@ -1,5 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { FirebaseApp } from "firebase/app";
+import { FIREBASE_APP, FIREBASE_CONFIG } from "../../firebase.constants";
+import { FirebaseConfig } from "../../interface";
 import {
   addDoc,
   collection,
@@ -14,6 +16,7 @@ import {
   endAt,
   endBefore,
   FieldPath,
+  FieldValue,
   getDoc,
   getDocs,
   getFirestore,
@@ -37,8 +40,6 @@ import {
   WithFieldValue,
   writeBatch,
 } from "firebase/firestore";
-import { FIREBASE_APP, FIREBASE_CONFIG } from "../../firebase.constants";
-import { FirebaseConfig } from "../../interface";
 
 @Injectable()
 export class FirestoreService {
@@ -194,7 +195,7 @@ export class FirestoreService {
     return documentId();
   }
 
-  serverTimestamp(): FieldPath {
+  serverTimestamp(): FieldValue {
     return serverTimestamp();
   }
 

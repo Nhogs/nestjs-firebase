@@ -30,11 +30,6 @@ jobs:
         continue-on-error: true
       - name: Run all the tests
         run: firebase emulators:exec --project demo-nhogs-nestjs-firebase --import=e2e/import 'npm test'
-      - name: Send coverage report
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unittests
       - name: publish code coverage on CC
         uses: paambaati/codeclimate-action@v3.0.0
         env:
