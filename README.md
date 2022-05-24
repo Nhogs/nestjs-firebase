@@ -1,6 +1,4 @@
-<p align="center">
-  <a href="https://github.com/Nhogs"><img alt="nhogs logo" width="96" src="https://nhogs.com/nhogs_192.png"></a>
-</p>
+<a href="https://nhogs.com"><img src="https://nhogs.com/nhogs_64.png" align="right" alt="nhogs-logo" title="NHOGS Interactive"></a>
 
 # @nhogs/nestjs-firebase
 
@@ -26,10 +24,11 @@ $ npm i --save @nhogs/nestjs-firebase
 First you need to have a running firebase project.
 See [Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup)
 
-:warning: This module only uses Firebase client API 
+:warning: This module only uses Firebase client API
+
 - [x] Use [Firebase client API](https://firebase.google.com/docs/web/setup)
-- [ ] Use [Firebase admin SDK](https://firebase.google.com/docs/admin/setup) 
- 
+- [ ] Use [Firebase admin SDK](https://firebase.google.com/docs/admin/setup)
+
 ### Module
 
 Add the module in app imports with project settings
