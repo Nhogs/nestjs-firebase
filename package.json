@@ -1,6 +1,6 @@
 {
   "name": "@nhogs/nestjs-firebase",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "engines": {
     "node": ">=16.x"
   },
@@ -57,7 +57,7 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "firebase": "^9.0.0",
-    "firebase-admin": "^10.0.0",
+    "firebase-admin": "^10.0.0 || ^11.0.0",
     "reflect-metadata": "^0.1.0",
     "rxjs": "^6.0.0 || ^7.0.0"
   },
