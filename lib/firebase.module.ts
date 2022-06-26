@@ -19,7 +19,6 @@ export class FirebaseModule implements OnApplicationShutdown {
   async onApplicationShutdown() {
     for (const app of getApps()) {
       const name = app.name;
-      console.log("deleting:" + name + "...");
       deleteApp(app)
         .then(function () {
           console.log("App " + name + " deleted successfully");
