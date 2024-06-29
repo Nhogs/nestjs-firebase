@@ -79,7 +79,7 @@ describe("Firebase Auth Service", () => {
     expect(toCheck).toMatchInlineSnapshot(`
       {
         "operationType": "signIn",
-        "user": Object {
+        "user": {
           "isAnonymous": true,
         },
       }

@@ -241,7 +241,7 @@ describe("Firebase Storage", () => {
       {},
     );
     expect(filteredAfter).toMatchInlineSnapshot(`
-      Object {
+      {
         "contentLanguage": "en-US",
         "contentType": "text/plain",
         "size": 12,

@@ -306,7 +306,7 @@ describe("Firebase Storage Service", () => {
     expect(data).toMatchInlineSnapshot(
       { id: expect.any(String) },
       `
-      Object {
+      {
         "age": 1,
         "firstName": "fn1",
         "id": Any<String>,

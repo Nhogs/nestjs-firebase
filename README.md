@@ -7,7 +7,7 @@
 
 ## [Firebase](https://firebase.google.com/) module for [NestJS](https://github.com/nestjs/nest).
 
-[![CI](https://github.com/nhogs/nestjs-firebase/actions/workflows/ci.yml/badge.svg)](https://github.com/Nhogs/nestjs-firebase/actions/workflows/ci.yml)
+[![CI](https://github.com/Nhogs/nestjs-firebase/actions/workflows/ci.yml/badge.svg)](https://github.com/Nhogs/nestjs-firebase/actions/workflows/ci.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/maintainability)](https://codeclimate.com/github/Nhogs/nestjs-firebase/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/356bd937ca8b2e7b8d96/test_coverage)](https://codeclimate.com/github/Nhogs/nestjs-firebase/test_coverage)
 
