@@ -172,15 +172,15 @@ describe("Firebase Storage Service", () => {
       .writeBatch()
       .set(
         firestoreService.doc("users", "1").withConverter<User>(userConverter),
-        u1
+        u1,
       )
       .set(
         firestoreService.doc("users", "2").withConverter<User>(userConverter),
-        u2
+        u2,
       )
       .set(
         firestoreService.doc("users", "3").withConverter<User>(userConverter),
-        u3
+        u3,
       )
       .commit();
 
@@ -192,9 +192,9 @@ describe("Firebase Storage Service", () => {
     expect(
       querySnapshot.docs
         .map((value) => value.data())
-        .sort((a, b) => b.firstName.localeCompare(a.firstName))
+        .sort((a, b) => b.firstName.localeCompare(a.firstName)),
     ).toMatchInlineSnapshot(`
-      Array [
+      [
         User {
           "age": 3,
           "firstName": "fn3",
@@ -218,15 +218,15 @@ describe("Firebase Storage Service", () => {
     await firestoreService.runTransaction(async (transaction) => {
       transaction.set(
         firestoreService.doc("users", "1").withConverter<User>(userConverter),
-        u1
+        u1,
       );
       transaction.set(
         firestoreService.doc("users", "2").withConverter<User>(userConverter),
-        u2
+        u2,
       );
       transaction.set(
         firestoreService.doc("users", "3").withConverter<User>(userConverter),
-        u3
+        u3,
       );
     });
 
@@ -238,9 +238,9 @@ describe("Firebase Storage Service", () => {
     expect(
       querySnapshot.docs
         .map((value) => value.data())
-        .sort((a, b) => b.firstName.localeCompare(a.firstName))
+        .sort((a, b) => b.firstName.localeCompare(a.firstName)),
     ).toMatchInlineSnapshot(`
-      Array [
+      [
         User {
           "age": 3,
           "firstName": "fn3",
@@ -271,13 +271,13 @@ describe("Firebase Storage Service", () => {
 
     const q = firestoreService.query(
       users,
-      firestoreService.where("age", ">", 2)
+      firestoreService.where("age", ">", 2),
     );
 
     const querySnapshot = await firestoreService.getDocs(q);
     expect(querySnapshot.docs.map((value) => value.data()))
       .toMatchInlineSnapshot(`
-      Array [
+      [
         User {
           "age": 3,
           "firstName": "fn3",
@@ -297,7 +297,7 @@ describe("Firebase Storage Service", () => {
 
     const ref = await firestoreService.addDoc<UserWithId>(
       users,
-      new UserWithId({ id: null, ...u1 })
+      new UserWithId({ id: null, ...u1 }),
     );
 
     const snapshot = await firestoreService.getDoc(ref);
@@ -312,7 +312,7 @@ describe("Firebase Storage Service", () => {
         "id": Any<String>,
         "lastName": "ln1",
       }
-    `
+    `,
     );
 
     expect(data.id).not.toBeNull();
@@ -326,7 +326,7 @@ describe("Firebase Storage Service", () => {
     for (let i = 0; i < 25; i++) {
       await firestoreService.addDoc<User>(
         users,
-        new User("fn" + i, "ln" + i, i)
+        new User("fn" + i, "ln" + i, i),
       );
     }
 
@@ -335,13 +335,13 @@ describe("Firebase Storage Service", () => {
       firestoreService.orderBy("age", "desc"),
       firestoreService.startAt(9),
       firestoreService.endAt(7),
-      firestoreService.limit(2)
+      firestoreService.limit(2),
     );
 
     const querySnapshot1 = await firestoreService.getDocs(q1);
     expect(querySnapshot1.docs.map((value) => value.data()))
       .toMatchInlineSnapshot(`
-      Array [
+      [
         User {
           "age": 9,
           "firstName": "fn9",
@@ -359,13 +359,13 @@ describe("Firebase Storage Service", () => {
       users,
       firestoreService.orderBy("firstName"),
       firestoreService.startAfter("fn3"),
-      firestoreService.endBefore("fn7")
+      firestoreService.endBefore("fn7"),
     );
 
     const querySnapshot2 = await firestoreService.getDocs(q2);
     expect(querySnapshot2.docs.map((value) => value.data()))
       .toMatchInlineSnapshot(`
-      Array [
+      [
         User {
           "age": 4,
           "firstName": "fn4",
@@ -393,13 +393,13 @@ describe("Firebase Storage Service", () => {
     for (let i = 3; i >= 0; i--) {
       await firestoreService.addDoc<User>(
         users,
-        new User("fn" + i, "ln" + i, i)
+        new User("fn" + i, "ln" + i, i),
       );
     }
 
     const q1 = firestoreService.query(
       users,
-      firestoreService.orderBy(firestoreService.documentId())
+      firestoreService.orderBy(firestoreService.documentId()),
     );
 
     const querySnapshot1 = await firestoreService.getDocs(q1);
@@ -421,12 +421,12 @@ describe("Firebase Storage Service", () => {
 
     const q = firestoreService.query(
       docs,
-      firestoreService.orderBy("time", "desc")
+      firestoreService.orderBy("time", "desc"),
     );
 
     const snap = await firestoreService.getDocs(q);
     expect(snap.docs.map((d) => d.data().index)).toMatchInlineSnapshot(`
-      Array [
+      [
         0,
         1,
         2,
@@ -439,7 +439,7 @@ describe("Firebase Storage Service", () => {
     // Delete all documents
     return await axios
       .delete(
-        `http://${FirebaseEmulatorEnv.firestoreHost}:${FirebaseEmulatorEnv.firestorePort}/emulator/v1/projects/${FirebaseEmulatorEnv.projectId}/databases/(default)/documents`
+        `http://${FirebaseEmulatorEnv.firestoreHost}:${FirebaseEmulatorEnv.firestorePort}/emulator/v1/projects/${FirebaseEmulatorEnv.projectId}/databases/(default)/documents`,
       )
       .then(function (response) {
         expect(response.status).toMatchInlineSnapshot(`200`);

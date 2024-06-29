@@ -77,7 +77,7 @@ xdescribe.each(testCase)("Module - %s", (_, dynamicModule) => {
   afterEach(async () => {
     return await axios
       .delete(
-        "http://localhost:8080/emulator/v1/projects/demo-nhogs-nestjs-firebase/databases/(default)/documents"
+        "http://localhost:8080/emulator/v1/projects/demo-nhogs-nestjs-firebase/databases/(default)/documents",
       )
       .then(function (response) {
         expect(response.status).toMatchInlineSnapshot(`200`);
@@ -112,7 +112,7 @@ xdescribe.each(testCase)("Module - %s", (_, dynamicModule) => {
                 "name": "Snowflake",
                 "url": "http://localhost:9199/v0/b/default-bucket/o/cats%2Fsnowflake.jpg?alt=media&token=1f6f9332-150b-4a91-80e7-8732ac84265e",
               }
-            `
+            `,
             );
             done();
           });
@@ -132,36 +132,36 @@ xdescribe.each(testCase)("Module - %s", (_, dynamicModule) => {
           .expect(200)
           .then((res) => {
             expect(res.body).toMatchInlineSnapshot(`
-              Array [
-                Object {
+              [
+                {
                   "_id": "jellybean",
                   "age": 1,
                   "breed": "Birman",
                   "name": "Jellybean",
                   "url": "http://localhost:9199/v0/b/default-bucket/o/cats%2Fjellybean.jpg?alt=media&token=e56ec9d7-af49-4f67-af8c-e5cbf3ecfee9",
                 },
-                Object {
+                {
                   "_id": "marshmallow",
                   "age": 4,
                   "breed": "Bengal",
                   "name": "Marshmallow",
                   "url": "http://localhost:9199/v0/b/default-bucket/o/cats%2Fmarshmallow.jpg?alt=media&token=7a1dd7bf-7ca0-4f49-a56b-e8ef66dc985a",
                 },
-                Object {
+                {
                   "_id": "minnie",
                   "age": 2,
                   "breed": "Scottish Fold",
                   "name": "Minnie",
                   "url": "http://localhost:9199/v0/b/default-bucket/o/cats%2Fminnie.jpg?alt=media&token=d6d2d862-1739-47ef-82ec-7fdfee938766",
                 },
-                Object {
+                {
                   "_id": "puffin",
                   "age": 8,
                   "breed": "Siamese",
                   "name": "Puffin",
                   "url": "http://localhost:9199/v0/b/default-bucket/o/cats%2Fpuffin.jpg?alt=media&token=75095f8f-e184-44d9-bcbf-be1f467bd5e9",
                 },
-                Object {
+                {
                   "_id": "snowflake",
                   "age": 3,
                   "breed": "Maine coon",

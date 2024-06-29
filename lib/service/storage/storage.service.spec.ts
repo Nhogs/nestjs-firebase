@@ -51,7 +51,7 @@ describe("Firebase Storage", () => {
     const storageReference = storageService.ref();
 
     expect(storageReference.toString()).toEqual(
-      `gs://${FirebaseEmulatorEnv.storageBucket}/`
+      `gs://${FirebaseEmulatorEnv.storageBucket}/`,
     );
     expect(storageReference.bucket).toEqual(FirebaseEmulatorEnv.storageBucket);
     expect(storageReference.name).toMatchInlineSnapshot(`""`);
@@ -60,7 +60,7 @@ describe("Firebase Storage", () => {
   it("should create a reference on a folder", () => {
     const storageReference = storageService.ref("cats");
     expect(storageReference.toString()).toEqual(
-      `gs://${FirebaseEmulatorEnv.storageBucket}/cats`
+      `gs://${FirebaseEmulatorEnv.storageBucket}/cats`,
     );
     expect(storageReference.name).toMatchInlineSnapshot(`"cats"`);
   });
@@ -79,14 +79,14 @@ describe("Firebase Storage", () => {
       })
       .then((snapshot) => {
         expect(snapshot.metadata.contentType).toMatchInlineSnapshot(
-          `"image/png"`
+          `"image/png"`,
         );
       });
 
     const downloadUrl = await storageService.getDownloadURL(fileName);
 
     expect(downloadUrl).toEqual(
-      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/default-bucket/o/${fileName}?alt=media&token=custom-token-for-test`
+      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/default-bucket/o/${fileName}?alt=media&token=custom-token-for-test`,
     );
   });
 
@@ -101,13 +101,13 @@ describe("Firebase Storage", () => {
       })
       .then((snapshot) => {
         expect(snapshot.metadata.contentType).toMatchInlineSnapshot(
-          `"text/plain"`
+          `"text/plain"`,
         );
       });
 
     const downloadUrl = await storageService.getDownloadURL(fileName);
     expect(downloadUrl).toEqual(
-      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/${FirebaseEmulatorEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`
+      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/${FirebaseEmulatorEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`,
     );
   });
 
@@ -125,7 +125,7 @@ describe("Firebase Storage", () => {
         customMetadata: {
           firebaseStorageDownloadTokens: "custom-token-for-test",
         },
-      }
+      },
     );
 
     uploadTask.on(
@@ -144,7 +144,7 @@ describe("Firebase Storage", () => {
           running - 100%"
         `);
         done();
-      }
+      },
     );
   });
 
@@ -152,16 +152,16 @@ describe("Firebase Storage", () => {
   it(`should fail unknown path`, async () => {
     await storageService.getDownloadURL("unknown").catch((error) => {
       expect(error).toMatchInlineSnapshot(
-        `[FirebaseError: Firebase Storage: Object 'unknown' does not exist. (storage/object-not-found)]`
+        `[FirebaseError: Firebase Storage: Object 'unknown' does not exist. (storage/object-not-found)]`,
       );
     });
   });
 
   it(`should getDownloadURL (from emulator imported dataset)`, async () => {
     expect(
-      await storageService.getDownloadURL("cats/snowflake.jpg")
+      await storageService.getDownloadURL("cats/snowflake.jpg"),
     ).toMatchInlineSnapshot(
-      `"http://localhost:9199/v0/b/default-bucket/o/cats%2Fsnowflake.jpg?alt=media&token=1f6f9332-150b-4a91-80e7-8732ac84265e"`
+      `"http://localhost:9199/v0/b/default-bucket/o/cats%2Fsnowflake.jpg?alt=media&token=1f6f9332-150b-4a91-80e7-8732ac84265e"`,
     );
   });
 
@@ -187,9 +187,9 @@ describe("Firebase Storage", () => {
     return await new Promise((fulfill) => stream.on("end", fulfill)).then(
       () => {
         expect(Buffer.concat(chunks).toString()).toMatchInlineSnapshot(
-          `"text content"`
+          `"text content"`,
         );
-      }
+      },
     );
   });
 
@@ -199,10 +199,10 @@ describe("Firebase Storage", () => {
 
     const filtered = keys.reduce(
       (obj, key) => ({ ...obj, [key]: metadata[key] }),
-      {}
+      {},
     );
     expect(filtered).toMatchInlineSnapshot(`
-      Object {
+      {
         "contentType": "image/jpeg",
         "fullPath": "cats/snowflake.jpg",
         "name": "snowflake.jpg",
@@ -223,10 +223,10 @@ describe("Firebase Storage", () => {
 
     const filteredBefore = keys.reduce(
       (obj, key) => ({ ...obj, [key]: metadataBefore[key] }),
-      {}
+      {},
     );
     expect(filteredBefore).toMatchInlineSnapshot(`
-      Object {
+      {
         "contentLanguage": undefined,
         "contentType": "text/plain",
         "size": 12,
@@ -238,7 +238,7 @@ describe("Firebase Storage", () => {
     const metadataAfter = await storageService.getMetadata(fileName);
     const filteredAfter = keys.reduce(
       (obj, key) => ({ ...obj, [key]: metadataAfter[key] }),
-      {}
+      {},
     );
     expect(filteredAfter).toMatchInlineSnapshot(`
       Object {
@@ -262,14 +262,14 @@ describe("Firebase Storage", () => {
     });
 
     expect(await storageService.getDownloadURL(fileName)).toEqual(
-      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/${FirebaseEmulatorEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`
+      `http://${FirebaseEmulatorEnv.storageHost}:${FirebaseEmulatorEnv.storagePort}/v0/b/${FirebaseEmulatorEnv.storageBucket}/o/${fileName}?alt=media&token=custom-token-for-test`,
     );
 
     await storageService.deleteObject(fileName);
 
     await storageService.getDownloadURL(fileName).catch((error) => {
       expect(error).toMatchInlineSnapshot(
-        `[FirebaseError: Firebase Storage: Object '${fileName}' does not exist. (storage/object-not-found)]`
+        `[FirebaseError: Firebase Storage: Object '${fileName}' does not exist. (storage/object-not-found)]`,
       );
     });
   });
@@ -277,7 +277,7 @@ describe("Firebase Storage", () => {
   it(`should ListAll`, async () => {
     expect((await storageService.listAll("cats")).items.map((ref) => ref.name))
       .toMatchInlineSnapshot(`
-      Array [
+      [
         "jellybean.jpg",
         "marshmallow.jpg",
         "minnie.jpg",
@@ -291,7 +291,7 @@ describe("Firebase Storage", () => {
     const firstPage = await storageService.list("cats", { maxResults: 3 });
 
     expect(firstPage.items.map((ref) => ref.name)).toMatchInlineSnapshot(`
-      Array [
+      [
         "jellybean.jpg",
         "marshmallow.jpg",
         "minnie.jpg",
@@ -305,7 +305,7 @@ describe("Firebase Storage", () => {
     });
 
     expect(secondPage.items.map((ref) => ref.name)).toMatchInlineSnapshot(`
-      Array [
+      [
         "puffin.jpg",
         "snowflake.jpg",
       ]

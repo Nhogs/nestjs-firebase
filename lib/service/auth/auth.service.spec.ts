@@ -38,11 +38,11 @@ describe("Firebase Auth Service", () => {
     try {
       await authService.signInWithEmailAndPassword(
         "user.email@gmail.com",
-        "userpassword"
+        "userpassword",
       );
     } catch (error) {
       expect(error).toMatchInlineSnapshot(
-        `[FirebaseError: Firebase: Error (auth/user-not-found).]`
+        `[FirebaseError: Firebase: Error (auth/user-not-found).]`,
       );
     }
   });
@@ -51,7 +51,7 @@ describe("Firebase Auth Service", () => {
     const user = (
       await authService.createUserWithEmailAndPassword(
         "user.email@gmail.com",
-        "userpassword"
+        "userpassword",
       )
     ).user;
 
@@ -60,7 +60,7 @@ describe("Firebase Auth Service", () => {
     const user2 = (
       await authService.signInWithEmailAndPassword(
         "user.email@gmail.com",
-        "userpassword"
+        "userpassword",
       )
     ).user;
 
@@ -77,7 +77,7 @@ describe("Firebase Auth Service", () => {
       },
     };
     expect(toCheck).toMatchInlineSnapshot(`
-      Object {
+      {
         "operationType": "signIn",
         "user": Object {
           "isAnonymous": true,
@@ -98,7 +98,7 @@ describe("Firebase Auth Service", () => {
   afterEach(async () => {
     return await axios
       .delete(
-        "http://localhost:9099/emulator/v1/projects/demo-nhogs-nestjs-firebase/accounts"
+        "http://localhost:9099/emulator/v1/projects/demo-nhogs-nestjs-firebase/accounts",
       )
       .then(function (response) {
         expect(response.status).toMatchInlineSnapshot(`200`);
